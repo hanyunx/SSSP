@@ -157,12 +157,17 @@ $$
 To get a SSSP, let $p$ be a prime and $r_1,r_2,...,r_7$ be 7 distinct elements in $\mathbb{Z}_p$. Pick degree 5 polynomials $v_0(x),v_1(x),...,v_5(x)$ such that
 $$
 \begin{pmatrix} 
-v_0(r_1) & v_0(r_2) & v_0(r_3) & v_0(r_4) & v_0(r_5) & v_0(r_6) & v_0(r_7) \\
-v_1(r_1) & v_1(r_2) & v_1(r_3) & v_1(r_4) & v_1(r_5) & v_1(r_6) & v_1(r_7) \\
-v_2(r_1) & v_2(r_2) & v_2(r_3) & v_2(r_4) & v_2(r_5) & v_2(r_6) & v_2(r_7) \\
-v_3(r_1) & v_3(r_2) & v_3(r_3) & v_3(r_4) & v_3(r_5) & v_3(r_6) & v_3(r_7) \\
-v_4(r_1) & v_4(r_2) & v_4(r_3) & v_4(r_4) & v_4(r_5) & v_4(r_6) & v_4(r_7) \\
-v_5(r_1) & v_5(r_2) & v_5(r_3) & v_5(r_4) & v_5(r_5) & v_5(r_6) & v_5(r_7) \\
+% v_0(r_1) & v_0(r_2) & v_0(r_3) & v_0(r_4) & v_0(r_5) & v_0(r_6) & v_0(r_7) \\
+% v_1(r_1) & v_1(r_2) & v_1(r_3) & v_1(r_4) & v_1(r_5) & v_1(r_6) & v_1(r_7) \\
+% v_2(r_1) & v_2(r_2) & v_2(r_3) & v_2(r_4) & v_2(r_5) & v_2(r_6) & v_2(r_7) \\
+% v_3(r_1) & v_3(r_2) & v_3(r_3) & v_3(r_4) & v_3(r_5) & v_3(r_6) & v_3(r_7) \\
+% v_4(r_1) & v_4(r_2) & v_4(r_3) & v_4(r_4) & v_4(r_5) & v_4(r_6) & v_4(r_7) \\
+% v_5(r_1) & v_5(r_2) & v_5(r_3) & v_5(r_4) & v_5(r_5) & v_5(r_6) & v_5(r_7) \\
+
+v_0(r_1) & v_0(r_2) & \dots & v_0(r_7) \\
+v_1(r_1) & v_1(r_2) & \dots & v_1(r_7) \\
+\vdots   & \ddots   &       & \vdots   \\
+v_5(r_1) &          & \ddots& v_5(r_7) 
 \end{pmatrix}
 = V =
 \begin{pmatrix} 
