@@ -1,1 +1,1 @@
-# SSSP
+# Simplified Square Span Programs
