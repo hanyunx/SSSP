@@ -31,7 +31,7 @@
 %
 \section{Background}
 \subsection{Span Programs}
-A Span Program is a linear-algebraic model of computation introduced by Karchmer and Wigderson\cite{gennaro2013quadratic}\cite{karchmer1993span}.
+A Span Program (SP) is a linear-algebraic model of computation introduced by Karchmer and Wigderson\cite{gennaro2013quadratic}\cite{karchmer1993span}.
 \begin{definition}
  A SP over a field $\mathbb{F}$ consists of a nonzero target vector $\textbf{t}$ over $\mathbb{F}$, a set of vectors $\mathcal{V}=\{\textbf{v}_1,...,\textbf{v}_m\}$, a partition of the indices $\mathcal{I}=\{1,...,m\}$ into two sets $\mathcal{I}_{labeled}$ and $\mathcal{I}_{free}$, and a further partition of $\mathcal{I}_{labeled}$ as $\cup_{i \in [n],j \in \{0,1\}}\mathcal{I}_{ij}$. 
 \end{definition}
@@ -122,15 +122,13 @@ To guarantee $a_1,a_2,...,a_5 \in \{0,1\}$, we use the constraints
 $$(2a_i-1)^2=1,\quad i=1,2,...,5$$
 
 To linearize\cite{groth2012new} the NAND gate with input $a_1,a_2$ and output $a_3$, writing $\bar c$ for $1-c$, we have
-% $$a_3 = \neg (a_1\wedge a_2) \iff & a_1 +a_2-2\bar a_3 \in  \{0,1\}
-% \iff & \left(2(a_1 +a_2-2(1-a_3))-1\right)^2=1
-% $$
 
-% \begin{align*}$
-$$a_3 = \neg (a_1\wedge a_2) \iff a_1 +a_2-2\bar a_3 \in  \{0,1\}$$ 
-$$\iff \left(2(a_1 +a_2-2(1-a_3))-1\right)^2=1$$
-% \end{align*} 
-$$\iff \left(2a_1 +2a_2+4a_3-5)\right)^2=1$$
+
+\begin{align*}
+a_3 = \neg (a_1\wedge a_2) & \iff a_1 +a_2-2\bar a_3 \in  \{0,1\} \\
+& \iff \left(2(a_1 +a_2-2(1-a_3))-1\right)^2=1 \\
+& \iff \left(2a_1 +2a_2+4a_3-5)\right)^2=1 
+\end{align*} 
 
 Similarly, we have
 $$ \left(2a_3 +2a_4+4a_5-5)\right)^2=1$$
