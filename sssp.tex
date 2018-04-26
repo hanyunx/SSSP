@@ -10,6 +10,9 @@
 \usepackage{mathrsfs}
 \usepackage{enumitem}
 \usepackage{amsmath}
+\usepackage{circuitikz}
+\usepackage{tikz}
+
 
 % \makeindex          % be prepared for an author index
 %
@@ -94,12 +97,27 @@ We say that Q verifies a boolean function $f:\{0,1\}^l \rightarrow \{0,1\}$ if i
 \end{definition}
 
 \subsection{Transformation From Circuit Satisfiability to SSSPs}
-Consider a circuit consisting of two NAND gates:
+Consider a circuit consisting of two NAND gates, as is shown below:\\
+\begin{center}
+\begin{circuitikz} \draw
+(0,1) node[nand port] (myor1) {$a_3$}
+    (myor1.in 1) node [anchor=east] {$a_1$}
+    (myor1.in 2) node [anchor=east] {$a_2$}
+(2,0) node[nand port] (myand1) {}
+    % (myand1.in 2) node [anchor=east] {C}
+    (myand1.out) node [anchor=west] {$a_5$}
+    (myor1.out) to (myand1.in 1);
 
- $$a_3 = \neg (a_1\wedge a_2)$$
- $$a_5 = \neg (a_3\wedge a_4)$$
+\draw (myand1.in 2) to (myand1.in 2 -| myor1.in 2)
+        node [anchor=east] {$a_4$};
+\end{circuitikz}
+\end{center}
 
-Since $a_1,a_2,...,a_5 \in \{0,1\}$, we have
+It satisfies that
+$$a_3 = \neg (a_1\wedge a_2)$$
+$$a_5 = \neg (a_3\wedge a_4)$$
+
+To guarantee $a_1,a_2,...,a_5 \in \{0,1\}$, we use the constraints
 $$(2a_i-1)^2=1,\quad i=1,2,...,5$$
 
 To linearize\cite{groth2012new} the NAND gate with input $a_1,a_2$ and output $a_3$, writing $\bar c$ for $1-c$, we have
@@ -160,7 +178,6 @@ $$
 
 Let $t(x)=(x-r_1)(x-r_2)...(x-r_7)$ to get a SSSP $(v_0(x),v_1(x),...,v_5(x),t(x))$ for the circuit such that
 $$t(x)\quad divides\quad \left(\sum\limits_{i=0}^5a_i v_i(x)\right)^2-1, \quad where ~ a_0=1$$
-
 If and only if $a_1,a_2,...a_5$ satisfy the circuit.
 
 
