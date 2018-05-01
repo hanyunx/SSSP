@@ -127,11 +127,11 @@ To linearize\cite{groth2012new} the NAND gate with input $a_1,a_2$ and output $a
 \begin{align*}
 a_3 = \neg (a_1\wedge a_2) & \iff a_1 +a_2-2\bar a_3 \in  \{0,1\} \\
 & \iff \left(2(a_1 +a_2-2(1-a_3))-1\right)^2=1 \\
-& \iff \left(2a_1 +2a_2+4a_3-5)\right)^2=1 
+& \iff \left(2a_1 +2a_2+4a_3-5\right)^2=1 
 \end{align*} 
 
 Similarly, we have
-$$ \left(2a_3 +2a_4+4a_5-5)\right)^2=1$$
+$$ \left(2a_3 +2a_4+4a_5-5\right)^2=1$$
 
 % Here, $\textbf{a}=(a_1,a_2,a_3,a_4,a_5)$
 The satisfiability of the circuit can therefore be represented by 7 quadratic equations:
@@ -189,7 +189,7 @@ If and only if $a_1,a_2,...a_5$ satisfy the circuit.
 % \subsection{Non-interactive zero-knowledge arguments of knowledge}
 
 
-\subsection{Bilinear groups}
+\subsection{Bilinear group}
 We use the following notation\cite{boneh2005evaluating}:
 \begin{itemize}
 	\item[1.] $\mathbb{G}$ and $\mathbb{G}_T$ are two (multiplicative) cyclic groups of prime order $q$.
@@ -199,6 +199,8 @@ We use the following notation\cite{boneh2005evaluating}:
 
 We say that $\mathbb{G}$ is a \textbf{bilinear group} if there exists a group $\mathbb{G}_T$ and a bilinear
 map as above.
+
+
 
 \subsection{Verifiable Computation from SSSPs}
 We will now construct succinct and perfect NIZK argument of knowledge for any functions $l_u, l_w$ and families $\{\mathcal{R}\}_\lambda$ of relations $R$ of pairs $(u,w) \in \{0,1\}^{l_u(\lambda)} \times \{0,1\}^{l_w(\lambda)} $ that can be computed by polinomial size circuits with $m(\lambda)$ wires and $n(\lambda)$ gates for a total size of $d(\lambda)=m(\lambda)+n(\lambda)$ \\
@@ -230,7 +232,7 @@ $$e(H,G ^{t(s)})=e(V^2/G) \quad e(V_w,G^\beta)=e(B_w,G).  $$
 \end{itemize}
 
 \section{Extractor}
-......
+Here we prove the security of the 
 
 % \begin{itemize}
 % \item[$\bullet$] $(\sigma,\tau) \leftarrow$ Setup$(1^\lambda,R)$: Run $gk := (p,\mathbb{G}, \hat{\mathbb{G}},\mathbb{G}_T,e) \leftarrow \mathcal{G}(1_\lambda)$. Parse $R$ as a boolean circuit $C_R:\{0,1\}^{l_u}\times \{0,1\}^{l_w} \rightarrow \{0,1\}$. Generate a SSSP $Q = (v_0(x),...,v_m(x),t(x))$ that verifies $C_R$ over $\mathbb{Z}_p$. Pick $G \leftarrow \mathbb{G}^*$ and $\hat{G} \leftarrow \hat{\mathbb{G}}^*$ and $\beta,s \leftarrow \mathbb{Z}_p^*$ such that $t(s) \neq 0$. Return
