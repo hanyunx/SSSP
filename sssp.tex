@@ -198,12 +198,40 @@ We use the following notation\cite{boneh2005evaluating}:
 \end{itemize}
 
 We say that $\mathbb{G}$ is a \textbf{bilinear group} if there exists a group $\mathbb{G}_T$ and a bilinear
-map as above.
+map as above.\\ \\
+% The security of our construction will be based on ? assumptions.\\
+THE $q$-POWER KNOWLEDGE OF EXPONENT ASSUMPTION. The knowledge of exponent (KEA) assumption\cite{damgaard1991towards} says that given $g$, $g^\alpha$ it is infeasible to create $c$, $\hat{c}$ such that $\hat{c}=c^\alpha$ without knowing $a$ such that $c=g^a$ and $\hat{c}=(g^\alpha)^a$. Bellare and Palacio\cite{bellare2004towards} extended this to the KEA3 assumption, which says that given $g,g^x,g^\alpha,g^{\alpha x}$ it is infeasible to create $c,\hat{c}$ such that $\hat{c}=c^\alpha$ without knowing $a_0,a_1$ such that $c=g^{a_0}(g^x)^{a_1}$ and $\hat{c}={g^\alpha}^{a_0}(g^{\alpha x})^{a_1}$.
 
+The $q$-power knowledge of exponent assumption is a generalization of KEA adn KEA3 in bilinear groups. It says that given $(g,g^x,...,g^{x^q},g^\alpha,g^{\alpha x},...,g^{\alpha x^q})$ it is infeasible to create $c,\hat{c}$ such that $\hat{c}=c^\alpha$ without knowing $a_0,...,a_q$ such that $c=\prod_{i=0}^{q}(g^{x^i})^{a_i}$ and $\hat{c}=\prod_{i=0}^{q}(g^{\alpha{x^i}})^{a_i}$.
+
+We will now give the formal definition of the $q$-power knowledge of exponent assumption. We write $(y;z)\leftarrow (\mathcal{A}\parallel\mathcal{X}_\mathcal{A})(x)$ when $\mathcal{A}$ on input $x$ output $y$ and $\mathcal{X}_\mathcal{A}$ on the same input output $z$.
+
+\begin{definition} {\rm($q$-PKE).}
+Let $k$ be a security parameter. The q(k)-power knowledge of exponent assumption holds for $\mathcal{G}$ if for every non-uniform probabilistic polynomial time adversary $\mathcal{A}$ there exists a non-uniform probabilistic polynomial time extractor $\mathcal{X}_\mathcal{A}$ such that
+$$Pr\left[ \begin{array}{lcl} 
+(p,\mathbb{G},\mathbb{G}_T,e) \leftarrow \mathcal{\mathbb{G}}(1^k); g \leftarrow \mathbb{G} \setminus\{1\};\alpha,s \leftarrow \mathbb{Z}_p^*;\\
+\sigma = (p,\mathbb{G},\mathbb{G}_T,e,g,g^s,...,g^{s^q},g^\alpha,g^{\alpha s},...,g^{\alpha s^q});\\
+(c,\hat{c};a_0,...,a_q) \leftarrow (\mathcal{A}\parallel\mathcal{X}_\mathcal{A})(\sigma):\hat{c}=c^\alpha \wedge c \neq \prod\limits_{i=0}^{n}g^{{a_i}{s^i}}
+\end{array}\right]\approx 0.$$
+for any auxiliary information $z \in \{0,1\}^{poly(k)}$ that is henerated independently of $\alpha$.
+\end{definition}
+
+The $q$-PKE assumption seems plausible even if the extractor is prohibited from viewing some computations, as long as those computations are not dependent on α. In our statement of the assumption, we capture this notion by providing $\mathcal{A}$ and $\mathcal{X}_\mathcal{A}$ with auxiliary information $z \in \{0,1\}^{poly(k)}$. $\mathcal{A}$ and $\mathcal{X}_\mathcal{A}$ do not know how $z$ was generated, but they are given the assurance that is not dependent on $\alpha$. This assurance seems necessary: e.g., if $z$ included an encoded pair $(r,r\alpha)$ whose representation with respect to $\{s^i\}$ is unknown, then we could not hope for an efficient extractor $\mathcal{X}_\mathcal{A}$, assuming problems such as discrete-log that underlie the encoding scheme are hard. Note that we do not require that $z$ be independent of $s$. Even if $z$ includes the actual value $s$, $q$-PKE still seems plausible.\\ \\
+THE $q$-POWER DIFFIE-HELLMAN ASSUMPTION. The $q$-power Diffie-Hellman assumption says given $g,g^s,...,g^{s^q},g^{s^{q+2}},...,g^{s^{2q}}$ it is hard to compute the missing element $g^{s^{q+1}}$.
+
+\begin{definition} {\rm($q$-PDH).}
+Let $k$ be a security parameter. The q(k)-power Diffie-Hellman assumption holds for $\mathcal{G}$ if for all non-uniform probabilistic polynomial time adbersaries $\mathcal{A}$ we have
+$$Pr\left[ \begin{array}{lcl} 
+(p,\mathbb{G},\mathbb{G}_T,e) \leftarrow \mathcal{\mathbb{G}}(1^k); g \leftarrow \mathbb{G} \setminus\{1\}; s \leftarrow \mathbb{Z}_p^*;\\
+\sigma = (p,\mathbb{G},\mathbb{G}_T,e,g,g^s,...,g^{s^q},g^{s^{q+2}},...,g^{s^{2q}});\\
+y \leftarrow (\mathcal{A})(\sigma):y=g^{s^{q+1}}
+\end{array}\right]\approx 0.$$
+\end{definition}
 
 
 \subsection{Verifiable Computation from SSSPs}
-We will now construct succinct and perfect NIZK argument of knowledge for any functions $l_u, l_w$ and families $\{\mathcal{R}\}_\lambda$ of relations $R$ of pairs $(u,w) \in \{0,1\}^{l_u(\lambda)} \times \{0,1\}^{l_w(\lambda)} $ that can be computed by polinomial size circuits with $m(\lambda)$ wires and $n(\lambda)$ gates for a total size of $d(\lambda)=m(\lambda)+n(\lambda)$ \\
+
+The following construction shows how to instantiate a verifiable computation scheme from a SSSP for any functions $l_u, l_w$ and families $\{\mathcal{R}\}_\lambda$ of relations $R$ of pairs $(u,w) \in \{0,1\}^{l_u(\lambda)} \times \{0,1\}^{l_w(\lambda)} $ that can be computed by polinomial size circuits with $m(\lambda)$ wires and $n(\lambda)$ gates for a total size of $d(\lambda)=m(\lambda)+n(\lambda)$. \\
 
 \begin{itemize}
 \item[$\bullet$] $(\sigma,\tau) \leftarrow$ Setup$(1^\lambda,R)$: Run $gk := (p,\mathbb{G},\mathbb{G}_T,e) \leftarrow \mathcal{G}(1_\lambda)$. Parse $R$ as a boolean circuit $C_R:\{0,1\}^{l_u}\times \{0,1\}^{l_w} \rightarrow \{0,1\}$. Generate a SSSP $Q = (v_0(x),...,v_m(x),t(x))$ that verifies $C_R$ over $\mathbb{Z}_p$. Pick $G \leftarrow \mathbb{G}^*$ and $\beta,s \leftarrow \mathbb{Z}_p^*$ such that $t(s) \neq 0$. Return
@@ -231,8 +259,13 @@ and return $\pi=(H,V_w,B_w,V)$.\\
 $$e(H,G ^{t(s)})=e(V^2/G) \quad e(V_w,G^\beta)=e(B_w,G).  $$
 \end{itemize}
 
-\section{Extractor}
-Here we prove the security of the 
+\section{Security}
+Here we prove the security of the ...
+% PCP paper
+The intuition is that it is hard for the prover , who knows ... but not ..., to output any ... unless the prover knows .... Knowledge of exponent assumptions (KEAs) formalize this intuition: they say that for any algorithm that outputs a pair of encoded eleents with ratio ..., there is an extractor that "watches" the algorithm's computation that outputs the representation (linear combination). In the security proof, extractors for the ... terms extract out polynomials ... that are in the spans of .... If the proof verifies, then... 
+
+
+
 
 % \begin{itemize}
 % \item[$\bullet$] $(\sigma,\tau) \leftarrow$ Setup$(1^\lambda,R)$: Run $gk := (p,\mathbb{G}, \hat{\mathbb{G}},\mathbb{G}_T,e) \leftarrow \mathcal{G}(1_\lambda)$. Parse $R$ as a boolean circuit $C_R:\{0,1\}^{l_u}\times \{0,1\}^{l_w} \rightarrow \{0,1\}$. Generate a SSSP $Q = (v_0(x),...,v_m(x),t(x))$ that verifies $C_R$ over $\mathbb{Z}_p$. Pick $G \leftarrow \mathbb{G}^*$ and $\hat{G} \leftarrow \hat{\mathbb{G}}^*$ and $\beta,s \leftarrow \mathbb{Z}_p^*$ such that $t(s) \neq 0$. Return
